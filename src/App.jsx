@@ -3,11 +3,26 @@ import './App.css'
 
 function App() {
 
+  const addPostEndpoint = "https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts";
+
+  function addPost(endpoint, data) {
+    fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      }
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  }
+
   const [newPostData, setNewPostData] = useState({
     title: "",
     body: "",
     author: "",
-    isPublic: true
+    public: true
   });
 
   function handleField(e) {
@@ -40,7 +55,7 @@ function App() {
     }
 
     if (areFieldsValid) {
-      console.log(newPostData);
+      addPost(addPostEndpoint, newPostData);
     }
   }
 
@@ -74,8 +89,8 @@ function App() {
 
           <input
             type="checkbox"
-            name="isPublic"
-            checked={newPostData.isPublic}
+            name="public"
+            checked={newPostData.public}
             onChange={handleField}
           />
 
