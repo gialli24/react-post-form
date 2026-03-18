@@ -30,7 +30,18 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("Form submitted !");
+    let areFieldsValid = true;
+    for (const key in newPostData) {
+      const field = newPostData[key];
+
+      if (field.length < 3) {
+        areFieldsValid = false;
+      }
+    }
+
+    if (areFieldsValid) {
+      console.log(newPostData);
+    }
   }
 
   return (
