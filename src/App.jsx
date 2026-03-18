@@ -3,10 +3,29 @@ import './App.css'
 
 function App() {
 
-  const [newTitle, setNewTitle] = useState("");
-  const [newBody, setNewBody] = useState("");
-  const [newAuthor, setNewAuthor] = useState("");
-  const [isNewPublic, setIsNewPublic] = useState(true);
+  const [newPostData, setNewPostData] = useState({
+    title: "",
+    body: "",
+    author: "",
+    isPublic: true
+  });
+
+  function handleField(e) {
+
+    const { type, name } = e.target;
+    let value;
+
+    switch (type) {
+      case "checkbox":
+        value = e.target.checked;
+        break;
+      default:
+        value = e.target.value;
+        break;
+    }
+
+    setNewPostData({ ...newPostData, [name]: value })
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,31 +41,31 @@ function App() {
             type="text"
             name="author"
             placeholder='Autore'
-            value={newAuthor}
-            onChange={(e) => setNewAuthor(e.target.value)}
+            value={newPostData.author}
+            onChange={handleField}
           />
 
           <input
             type="text"
             name="title"
             placeholder='Titolo'
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
+            value={newPostData.title}
+            onChange={handleField}
           />
 
           <input
             type="text"
             name="body"
             placeholder='Contenuto'
-            value={newTitle}
-            onChange={(e) => setNewBody(e.target.value)}
+            value={newPostData.body}
+            onChange={handleField}
           />
 
           <input
             type="checkbox"
             name="isPublic"
-            checked={isNewPublic}
-            onChange={(e) => setIsNewPublic(e.target.checked)}
+            checked={newPostData.isPublic}
+            onChange={handleField}
           />
 
           <button type="submit">Salva</button>
