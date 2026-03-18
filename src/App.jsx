@@ -24,9 +24,19 @@ function App() {
       });
   }
 
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState();
 
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([{
+    title: "Post di esempio",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, eum earum corporis saepe cumque commodi nisi veritatis officiis excepturi laudantium quam, consequatur tempora ipsum quisquam mollitia architecto magni doloribus quos!",
+    author: "Lorem Ipsum",
+    public: true
+  }, {
+    title: "Post di esempio",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, eum earum corporis saepe cumque commodi nisi veritatis officiis excepturi laudantium quam, consequatur tempora ipsum quisquam mollitia architecto magni doloribus quos!",
+    author: "Lorem Ipsum",
+    public: false
+  }])
 
   const [newPostData, setNewPostData] = useState({
     title: "",
@@ -72,50 +82,88 @@ function App() {
   return (
     <>
       <main>
-        {alert && <div className="alert">{alert}</div>}
+        <div className="container centered">
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="author"
-            placeholder='Autore'
-            value={newPostData.author}
-            onChange={handleField}
-          />
+          {alert && <div className="alert">{alert}</div>}
 
-          <input
-            type="text"
-            name="title"
-            placeholder='Titolo'
-            value={newPostData.title}
-            onChange={handleField}
-          />
+          <form onSubmit={handleSubmit}>
+            <div className='field'>
+              <label htmlFor="author">Autore</label>
+              <input
+                type="text"
+                name="author"
+                placeholder='Autore'
+                value={newPostData.author}
+                onChange={handleField}
+              />
+            </div>
 
-          <textarea
-            type="text"
-            name="body"
-            placeholder='Contenuto'
-            value={newPostData.body}
-            onChange={handleField}
-          ></textarea>
+            <div className='field'>
+              <label htmlFor="title">Titolo</label>
+              <input
+                type="text"
+                name="title"
+                placeholder='Titolo'
+                value={newPostData.title}
+                onChange={handleField}
+              />
+            </div>
 
-          <input
-            type="checkbox"
-            name="public"
-            checked={newPostData.public}
-            onChange={handleField}
-          />
+            <div className='field'>
+              <label htmlFor="body">Contenuto</label>
+              <textarea
+                type="text"
+                name="body"
+                placeholder='Contenuto'
+                value={newPostData.body}
+                onChange={handleField}
+              ></textarea>
+            </div>
 
-          <button type="submit">Salva</button>
-        </form>
+            <div className="inline-field">
+              <input
+                type="checkbox"
+                name="public"
+                checked={newPostData.public}
+                onChange={handleField}
+              />
+              <label htmlFor="public">Pubblica il post immediatamente</label>
+            </div>
 
-        <div>
-          <ul>
-            {posts.map((post, i) => (
-              <li key={i}>{post.title}</li>
-            ))}
-          </ul>
+            <button type="submit">Salva</button>
+          </form>
         </div>
+
+        <hr />
+
+        <section id="posts">
+          <div className="container centered">
+
+            <h2>Post salvati</h2>
+
+            <div className='row'>
+              {posts.map((post, i) => (
+                <div className='col' key={i}>
+                  <div className="post-card">
+
+                    <h3>{post.title}</h3>
+
+                    <p>
+                      {post.body}
+                    </p>
+
+                    <span>{post.author}</span>
+
+                    {
+                      !post.public && <span className='not-published'>Salvato come bozza</span>
+                    }
+
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main >
     </>
   )
