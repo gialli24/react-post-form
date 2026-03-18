@@ -14,9 +14,17 @@ function App() {
       }
     })
       .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
+      .then(data => {
+        console.log(data)
+        setAlert("Il post è stato inviato con successo");
+      })
+      .catch(error => {
+        console.error(error)
+        setAlert("Si è verificato un errore");
+      });
   }
+
+  const [alert, setAlert] = useState("");
 
   const [newPostData, setNewPostData] = useState({
     title: "",
@@ -62,6 +70,8 @@ function App() {
   return (
     <>
       <main>
+        {alert && <div className="alert">{alert}</div>}
+
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -79,13 +89,13 @@ function App() {
             onChange={handleField}
           />
 
-          <input
+          <textarea
             type="text"
             name="body"
             placeholder='Contenuto'
             value={newPostData.body}
             onChange={handleField}
-          />
+          ></textarea>
 
           <input
             type="checkbox"
