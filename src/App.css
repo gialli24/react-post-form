@@ -4,7 +4,10 @@
 :root {
   --primary-color: #ff5e00;
   --secondary-color: #e9e9e9;
-  --warning-color: #ff5e5e;
+  --danger-color: #ff5e5e;
+  --danger-secondary-color: #ffd8d8;
+  --success-color: #14ac00;
+  --success-secondary-color: #ccffc5;
   --white-color: #fff;
 }
 
@@ -113,6 +116,27 @@ button:hover {
   opacity: 0.8;
 }
 
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  font-weight: 700;
+}
+
+.alert.success {
+  border-bottom: 3px solid var(--success-color);
+
+  background-color: var(--success-secondary-color);
+  color: var(--success-color);
+}
+
+.alert.error {
+  border-bottom: 3px solid var(--danger-color);
+
+  background-color: var(--danger-secondary-color);
+  color: var(--danger-color);
+}
+
 /* Posts */
 .post-card {
   display: flex;
@@ -129,5 +153,5 @@ button:hover {
 .post-card>.not-published {
   font-size: 0.8rem;
 
-  color: var(--warning-color);
+  color: var(--danger-color);
 }

@@ -15,16 +15,16 @@ function App() {
     })
       .then(response => response.json())
       .then(data => {
-        setPosts([...posts, data])
-        setAlert("Il post è stato inviato con successo");
+        setPosts([data, ...posts])
+        setAlert({ type: "success", content: "Il post è stato inviato con successo" });
       })
       .catch(error => {
         console.error(error)
-        setAlert("Si è verificato un errore");
+        setAlert({ type: "error", content: "Si è verificato un errore" });
       });
   }
 
-  const [alert, setAlert] = useState();
+  const [alert, setAlert] = useState(null);
 
   const [posts, setPosts] = useState([{
     title: "Post di esempio",
@@ -83,10 +83,9 @@ function App() {
     <>
       <main>
         <div className="container centered">
-
-          {alert && <div className="alert">{alert}</div>}
-
           <form onSubmit={handleSubmit}>
+            {alert && <div className={alert.type === "success" ? "alert success" : "alert error"}>{alert.content}</div>}
+
             <div className='field'>
               <label htmlFor="author">Autore</label>
               <input
