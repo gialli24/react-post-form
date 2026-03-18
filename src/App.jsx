@@ -15,7 +15,7 @@ function App() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
+        setPosts([...posts, data])
         setAlert("Il post è stato inviato con successo");
       })
       .catch(error => {
@@ -25,6 +25,8 @@ function App() {
   }
 
   const [alert, setAlert] = useState("");
+
+  const [posts, setPosts] = useState([])
 
   const [newPostData, setNewPostData] = useState({
     title: "",
@@ -106,6 +108,14 @@ function App() {
 
           <button type="submit">Salva</button>
         </form>
+
+        <div>
+          <ul>
+            {posts.map((post, i) => (
+              <li key={i}>{post.title}</li>
+            ))}
+          </ul>
+        </div>
       </main >
     </>
   )
